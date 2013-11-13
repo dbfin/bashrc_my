@@ -7,6 +7,7 @@ diff "$BASH_SOURCE" "/etc/profile.d/$( basename "$BASH_SOURCE" )" >/dev/null 2>/
 
 # load git completion if needed
 [ $UID -ne 0 -a -z "$( type -t __git_ps1 )" -a -f /usr/share/git-core/contrib/completion/git-prompt.sh ] && echo -en "\e[33mLoading git completion... \e[31m" && . /usr/share/git-core/contrib/completion/git-prompt.sh && echo -e "\e[32mDone."
+echo -en "\e[0m"
 
 # Welcome!
 
