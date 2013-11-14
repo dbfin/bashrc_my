@@ -10,7 +10,7 @@ bashrc_my
   - gita (git add -i)
   - gitc (enter message and commit locally)
   - gitch \<commit\> (git checkout)
-  - gitd \<old\> \<new\> (git diff)
+  - gitd \[\<old\>\] \[\<new\>\] (git diff)
   - gitl \<number of commits\> (git log --all --oneline --decorate --abbrev-commit --graph -n)
   - gitp (git push -u --tags origin master)
   - gitpl \<remote\> \<branch\> (git pull)
