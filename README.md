@@ -13,6 +13,7 @@ bashrc_my
   - gitd \[\<old\>\] \[\<new\>\] (git diff)
   - gitl \<number of commits\> (git log --all --oneline --decorate --abbrev-commit --graph -n)
   - gitp (git push -u --tags origin master)
+  - gitpb \<branch\> (git push -u --tags origin)
   - gitpl \<remote\> \<branch\> (git pull)
   - gits (git status -sb)
   - gitst (git stash)

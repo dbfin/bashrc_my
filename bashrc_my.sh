@@ -189,6 +189,7 @@ if [ $UID -ne 0 ]; then
 	alias gitd='git diff'
 	alias gitl='git log --all --oneline --decorate --abbrev-commit --graph -n'
 	alias gitp='git push -u --tags origin master'
+	alias gitpb='git push -u --tags origin'
 	alias gitpl='git pull'
 	alias gits='git status -sb'
 	alias gitst='git stash'
