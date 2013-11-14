@@ -174,6 +174,7 @@ if [ $UID -ne 0 ]; then
 	export HISTCONTROL=ignoredups
 
 	alias gita='git add -i'
+	alias gitam='git commit --amend'
 	alias gitc="git commit -m \"\$( read -p Message:\\  m && echo \$m )\""
 	alias gitch='git checkout'
 	alias gitd='git diff'
