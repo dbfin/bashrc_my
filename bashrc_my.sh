@@ -96,7 +96,14 @@ local TB0='\[\e[49m\]'
 local TB256='\[\e[48;5;' # 256-color background: must be followed by ###m\]
 
 # prompt
-export PROMPT_DIRTRIM=3
+
+function __pwd() {
+	echo -n "${PWD/#$HOME/~}"\
+	| sed\
+		-e 's|^\(\~\?/[^/]*/\).*\(\(/[^/]*\)\{3\}/\?\)$|\1...\2|'\
+		-e 's|\([^/]\)$|\1/|'
+}
+
 export PS1="\
 ${TFY}\
 \D{%T} \
@@ -111,7 +118,7 @@ ${TFY}\
 	|| echo -n \"\${USER}\" \
   ) \
 \
-${TF0}\w\
+${TF0}\$( __pwd )\
 \
 \$( PG=\"\$( __git_ps1 ' ± %s' 2>/dev/null )\" && [[ -n \"\$PG\" ]] && {\
 	PGC='${TFLG}';\
