@@ -29,7 +29,7 @@ local m="$( command -v fortune 2>/dev/null )"
 if [ -f "$m" ]; then
 	while read l; do
 		echo -en "\e[0m\n${WB}${WF}│ ${WFF}"
-		printf '%s%s' "${pad:1:$(( $W-4-${#l} ))}" "$l"
+		printf '%s%s' "${pad:1:$(( $W-4-${#l} ))}" "$( expand -t 1 <<< "$l" )"
 		echo -en "${WF} │"
 	done < <( $m 2>/dev/null | fold -s -w 54 )
 fi
