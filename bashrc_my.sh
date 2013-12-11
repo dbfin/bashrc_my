@@ -201,6 +201,7 @@ if [ $UID -ne 0 ]; then
 	alias gitch='git checkout'
 	alias gitd='git diff'
 	alias gitl='git log --all --oneline --decorate --abbrev-commit --graph -n'
+	alias gitlb='git log --oneline --decorate --abbrev-commit --graph -n'
 	alias gitp='git push -u --tags origin master'
 	alias gitpb='git push -u --tags origin'
 	alias gitpl='git pull'

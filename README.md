@@ -8,10 +8,12 @@ bashrc_my
 1. Adds the following aliases:
 
   - gita (git add -i)
+  - gitam (git commit --amend)
   - gitc (enter message and commit locally)
   - gitch \<commit\> (git checkout)
   - gitd \[\<old\>\] \[\<new\>\] (git diff)
   - gitl \<number of commits\> (git log --all --oneline --decorate --abbrev-commit --graph -n)
+  - gitlb \<number of commits\> \<branch\> -- (git log --oneline --decorate --abbrev-commit --graph -n)
   - gitp (git push -u --tags origin master)
   - gitpb \<branch\> (git push -u --tags origin)
   - gitpl \[\<remote\>\] \[\<branch\>\] (git pull)
