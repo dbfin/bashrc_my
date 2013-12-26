@@ -31,7 +31,7 @@ if [ -f "$m" ]; then
 		echo -en "\e[0m\n${WB}${WF}│ ${WFF}"
 		printf '%s%s' "${pad:1:$(( $W-4-${#l} ))}" "$( expand -t 1 <<< "$l" )"
 		echo -en "${WF} │"
-	done < <( $m 2>/dev/null | fold -s -w 54 )
+	done < <( $m -n 200 -s 2>/dev/null | fold -s -w 54 )
 fi
 echo -en "\e[0m\n${WB}${WF}"
 printf '%s%s%s' '│' "${pad:1:$(( $W-2 ))}" '│'
