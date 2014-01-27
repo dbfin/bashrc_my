@@ -108,7 +108,7 @@ function __fetch() {
 	local fetch="$( git rev-parse --show-toplevel 2>/dev/null )"
 	if [ -n "$fetch" -a -n "$( git remote show 2>/dev/null )" ]; then
 		fetch="$fetch/.git/FETCH_HEAD"
-		if [ ! -e "$fetch" -o -n "$( find "$fetch" -mmin +5 )" ]; then
+		if [ ! -e "$fetch" -o -n "$( find "$fetch" -mmin +5 2>/dev/null )" ]; then
 			git fetch --all --quiet >/dev/null 2>/dev/null & disown
 		fi
 	fi
