@@ -228,4 +228,5 @@ if [ $UID -ne 0 ]; then
 
 	export HISTFILESIZE=1000000
 	export HISTCONTROL=ignoredups
+	export PATH=$PATH:$HOME/.local/bin
 fi
