@@ -2,8 +2,21 @@
 
 function __bashrc_my__init() {
 
+[ -n "$BASH" ] && isbash=true || isbash=false
+
 # check that we have an updated copy in /etc/profile.d/
-diff "$BASH_SOURCE" "/etc/profile.d/$( basename "$BASH_SOURCE" )" >/dev/null 2>/dev/null || { echo -en "\e[33mUpdating $( basename $BASH_SOURCE )... \e[31m" && sudo cp "$BASH_SOURCE" "/etc/profile.d/$( basename $BASH_SOURCE )" && sudo chmod a+r "/etc/profile.d/$( basename $BASH_SOURCE )" && echo -e "\e[32mDone."; echo -en "\e[0m"; }
+# use in Bash only if you do not create a symbolic link to this file
+#[ "$isbash" '==' 'true' ] && {
+#diff "$BASH_SOURCE" "/etc/profile.d/$( basename "$BASH_SOURCE" )" 1>/dev/null 2>/dev/null \
+#	|| { \
+#		echo -en "\e[33mUpdating $( basename $BASH_SOURCE )... \e[31m" \
+#			&& sudo cp "$BASH_SOURCE" "/etc/profile.d/$( basename $BASH_SOURCE )" \
+#			&& sudo chmod a+r "/etc/profile.d/$( basename $BASH_SOURCE )" \
+#			&& echo -e "\e[32mDone." \
+#			|| echo -e "\e[34mFailed."; \
+#		echo -en "\e[0m"; \
+#	}
+#}
 
 # load git completion if needed
 [ $UID -ne 0 -a -z "$( type -t __git_ps1 )" -a -f /usr/share/git-core/contrib/completion/git-prompt.sh ] && echo -en "\e[33mLoading git completion... \e[31m" && . /usr/share/git-core/contrib/completion/git-prompt.sh && echo -e "\e[32mDone."
