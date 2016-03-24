@@ -68,64 +68,73 @@ echo ''
 
 # Prompt
 
+setopt PROMPT_SUBST 2>/dev/null
+autoload -U colors 2>/dev/null && colors
+
+# Bash requires '\[' and '\]' in the prompt not to count non-printable characters; and other shell-specific variables
+local a='%{'
+local z='%}'
+local d='%D{%H:%M:%S}'
+[ "$isbash" '==' 'true' ] && {
+	a=$'\['
+	z=$'\]'
+	d='\D{%T}'
+}
+
 # colors and decorations
-local T0='\[\e[0m\]' # reset all
+local T0=$a$'\e[0m'$z # reset all
 
-local TDB='\[\e[1m\]' # bold
-local TDU='\[\e[4m\]' # underlined
-local TDI='\[\e[7m\]' # inversed
-local TDB0='\[\e[21m\]' # reset bold
-local TDU0='\[\e[24m\]' # reset underlined
-local TDI0='\[\e[27m\]' # reset inversed
-local TD0='\[\e[21;24;27m\]' # reset all decorations
+local TDB=$a$'\e[1m'$z # bold
+local TDU=$a$'\e[4m'$z # underlined
+local TDI=$a$'\e[7m'$z # inversed
+local TDB0=$a$'\e[21m'$z # reset bold
+local TDU0=$a$'\e[24m'$z # reset underlined
+local TDI0=$a$'\e[27m'$z # reset inversed
+local TD0=$a$'\e[21;24;27m'$z # reset all decorations
 
-local TFBL='\[\e[30m\]'
-local TFR='\[\e[31m\]'
-local TFG='\[\e[32m\]'
-local TFY='\[\e[33m\]'
-local TFB='\[\e[34m\]'
-local TFM='\[\e[35m\]'
-local TFC='\[\e[36m\]'
-local TFLGR='\[\e[37m\]'
-local TFGR='\[\e[90m\]'
-local TFLR='\[\e[91m\]'
-local TFLG='\[\e[92m\]'
-local TFLY='\[\e[93m\]'
-local TFLB='\[\e[94m\]'
-local TFLM='\[\e[95m\]'
-local TFLC='\[\e[96m\]'
-local TFW='\[\e[97m\]'
-local TF0='\[\e[39m\]'
+local TFBL=$a$'\e[30m'$z
+local TFR=$a$'\e[31m'$z
+local TFG=$a$'\e[32m'$z
+local TFY=$a$'\e[33m'$z
+local TFB=$a$'\e[34m'$z
+local TFM=$a$'\e[35m'$z
+local TFC=$a$'\e[36m'$z
+local TFLGR=$a$'\e[37m'$z
+local TFGR=$a$'\e[90m'$z
+local TFLR=$a$'\e[91m'$z
+local TFLG=$a$'\e[92m'$z
+local TFLY=$a$'\e[93m'$z
+local TFLB=$a$'\e[94m'$z
+local TFLM=$a$'\e[95m'$z
+local TFLC=$a$'\e[96m'$z
+local TFW=$a$'\e[97m'$z
+local TF0=$a$'\e[39m'$z
 
-local TF256='\[\e[38;5;' # 256-color foreground: must be followed by ###m\]
-
-local TBBL='\[\e[40m\]'
-local TBR='\[\e[41m\]'
-local TBG='\[\e[42m\]'
-local TBY='\[\e[43m\]'
-local TBB='\[\e[44m\]'
-local TBM='\[\e[45m\]'
-local TBC='\[\e[46m\]'
-local TBLGR='\[\e[47m\]'
-local TBGR='\[\e[100m\]'
-local TBLR='\[\e[101m\]'
-local TBLG='\[\e[102m\]'
-local TBLY='\[\e[103m\]'
-local TBLB='\[\e[104m\]'
-local TBLM='\[\e[105m\]'
-local TBLC='\[\e[106m\]'
-local TBW='\[\e[107m\]'
-local TB0='\[\e[49m\]'
-
-local TB256='\[\e[48;5;' # 256-color background: must be followed by ###m\]
+local TBBL=$a$'\e[40m'$z
+local TBR=$a$'\e[41m'$z
+local TBG=$a$'\e[42m'$z
+local TBY=$a$'\e[43m'$z
+local TBB=$a$'\e[44m'$z
+local TBM=$a$'\e[45m'$z
+local TBC=$a$'\e[46m'$z
+local TBLGR=$a$'\e[47m'$z
+local TBGR=$a$'\e[100m'$z
+local TBLR=$a$'\e[101m'$z
+local TBLG=$a$'\e[102m'$z
+local TBLY=$a$'\e[103m'$z
+local TBLB=$a$'\e[104m'$z
+local TBLM=$a$'\e[105m'$z
+local TBLC=$a$'\e[106m'$z
+local TBW=$a$'\e[107m'$z
+local TB0=$a$'\e[49m'$z
 
 # prompt
 
 function __pwd() {
-	echo -n "${PWD/#$HOME/~}"\
+	echo -n "${PWD/#$HOME/⌂}"\
 	| sed\
-		-e 's|^\(\~\?/[^/]*/\).*\(\(/[^/]*\)\{3\}/\?\)$|\1...\2|'\
-		-e 's|\([^/]\)$|\1/|'
+		-e 's|^\(⌂\?/[^/]*/\).*\(\(/[^/]*\)\{3\}/\?\)$|\1...\2|'\
+		-e 's|\(.\)\/$|\1⇨|'
 }
 
 function __fetch() {
@@ -140,8 +149,9 @@ function __fetch() {
 
 export PS1="\
 \$( __fetch )\
+\
 ${TFY}\
-\D{%T} \
+${d} \
 \
 \$( [[ \${UID} -eq 0 ]] \
 	&& echo -n '${TFLR}' \
@@ -175,10 +185,10 @@ ${TF0}\$( __pwd )\
 		-e \"s|\\|\\?MERGING| ×|\"\
 		-e \"s|  \\+| |g\"\
 		-e \"s| *\\\$||g\"\
+		-e \"s|%|${TFLR}?\$PGC|\"\
 		-e \"s|(\\(.*\\))|\$PGBC\\1\$PGC|\"\
 		-e \"s|\\(+\\)|${TFLY}\\1\$PGC|\"\
 		-e \"s|\\(\\*\\)|${TFLR}\\1\$PGC|\"\
-		-e \"s|%|${TFLR}?\$PGC|\"\
 		-e \"s|\\(«[0-9]*\\)|${TFLY}\\1\$PGC|\"\
 		-e \"s|\\(ʭ\\)|${TFLB}\\1\$PGC|\"\
 		-e \"s|\\(ø\\)|${TFLR}\\1\$PGC|\"\
