@@ -228,21 +228,4 @@ if [ $UID -ne 0 ]; then
 
 	export HISTFILESIZE=1000000
 	export HISTCONTROL=ignoredups
-
-	alias gita='git add -i'
-	alias gitam='git commit --amend'
-	alias gitc="git commit -m \"\$( read -p Message:\\  m && echo \$m )\""
-	alias gitch='git checkout'
-	alias gitd='git diff'
-	alias gitl='git log --all --oneline --decorate --abbrev-commit --graph -n'
-	alias gitlb='git log --oneline --decorate --abbrev-commit --graph -n'
-	alias gitp='git push -u --tags origin master'
-	alias gitpb='git push -u --tags origin'
-	alias gitpl='git pull'
-	alias gits='git status -sb'
-	alias gitst='git stash'
-	alias gitsti='git stash --keep-index'
-	alias gitstl='git stash list'
-	alias gitstp='git stash pop'
-	alias gitstpi='git stash pop --index'
 fi
