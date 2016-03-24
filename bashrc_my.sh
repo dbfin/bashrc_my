@@ -19,8 +19,19 @@ function __bashrc_my__init() {
 #}
 
 # load git completion if needed
-[ $UID -ne 0 -a -z "$( type -t __git_ps1 )" -a -f /usr/share/git-core/contrib/completion/git-prompt.sh ] && echo -en "\e[33mLoading git completion... \e[31m" && . /usr/share/git-core/contrib/completion/git-prompt.sh && echo -e "\e[32mDone."
-echo -en "\e[0m"
+local gc
+[ -f /usr/share/git-core/contrib/completion/git-prompt.sh ] \
+	&& gc="/usr/share/git-core/contrib/completion/git-prompt.sh" \
+	|| { \
+		[ -f /etc/bash_completion.d/git-prompt.sh ] \
+			&& gc="/etc/bash_completion.d/git-prompt.sh" \
+			|| gc=''; \
+	}
+[ $UID -ne 0 -a -n "$gc" ] \
+	&& { \
+		type __git_ps1 1>/dev/null 2>/dev/null \
+			|| . "$gc"; \
+	}
 
 # Welcome!
 
