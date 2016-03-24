@@ -226,7 +226,7 @@ if [ $UID -ne 0 ]; then
 
 	stty stop ^p
 
-	export HISTFILESIZE=11111
+	export HISTFILESIZE=1000000
 	export HISTCONTROL=ignoredups
 
 	alias gita='git add -i'
@@ -246,4 +246,3 @@ if [ $UID -ne 0 ]; then
 	alias gitstp='git stash pop'
 	alias gitstpi='git stash pop --index'
 fi
-
