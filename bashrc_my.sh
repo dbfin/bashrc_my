@@ -24,15 +24,19 @@ if [[ -n "$BASH" ]]; then tt='bash'; fi
 local gc
 [ -f /usr/share/git-core/contrib/completion/git-prompt.sh ] \
 	&& gc="/usr/share/git-core/contrib/completion/git-prompt.sh" \
+|| { \
+	[ -f /etc/bash_completion.d/git-prompt.sh ] \
+		&& gc="/etc/bash_completion.d/git-prompt.sh" \
 	|| { \
-		[ -f /etc/bash_completion.d/git-prompt.sh ] \
-			&& gc="/etc/bash_completion.d/git-prompt.sh" \
-			|| gc=''; \
-	}
+		[ -f /usr/share/git/completion/git-completion.$tt ] \
+			&& gc='/usr/share/git/completion/git-completion.zsh' \
+		|| gc=''; \
+	} \
+}
 [ $UID -ne 0 -a -n "$gc" ] \
 	&& { \
 		type __git_ps1 1>/dev/null 2>/dev/null \
-			|| . "$gc"; \
+			|| . "$gc" 2>/dev/null; \
 	}
 
 # Welcome!
@@ -136,8 +140,9 @@ local TB0=$a$'\e[49m'$z
 # prompt
 
 function __pwd() {
-	echo -n "${PWD/#$HOME/⌂}"\
+	echo -n "${PWD}"\
 	| sed\
+	-e 's/^'"$(echo "${HOME//\//\\\/}")"'\(\/\|$\)/⌂\1/'\
 		-e 's|^\(⌂\?/[^/]*/\).*\(\(/[^/]*\)\{3\}/\?\)$|\1...\2|'\
 		-e 's|\(.\)\/$|\1⇨|'
 }
