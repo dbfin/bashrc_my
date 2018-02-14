@@ -2,7 +2,9 @@
 
 function __bashrc_my__init() {
 
-[ -n "$BASH" ] && isbash=true || isbash=false
+tt=''
+if [[ -n "$ZSH_VERSION" ]]; then tt='zsh'; fi
+if [[ -n "$BASH" ]]; then tt='bash'; fi
 
 # check that we have an updated copy in /etc/profile.d/
 # use in Bash only if you do not create a symbolic link to this file
