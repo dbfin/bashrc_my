@@ -157,6 +157,13 @@ function __fetch() {
 	fi
 }
 
+function __fetch() {
+    :
+}
+function __git_ps1() {
+    :
+}
+
 export PS1="\
 \$( __fetch )\
 \
