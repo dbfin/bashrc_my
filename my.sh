@@ -60,7 +60,11 @@ local BG_COLOR=0
 #POWERLEVEL9K_MODE='awesome-fontconfig'
 POWERLEVEL9K_MODE='nerdfont-complete'
 
-source /usr/share/zsh-theme-powerlevel9k/powerlevel9k.zsh-theme
+if [[ x"$ssh" == x ]]; then
+        source /usr/share/zsh-theme-powerlevel9k/powerlevel9k.zsh-theme
+else
+        source $HOME/.setup/powerlevel9k/powerlevel9k.zsh-theme
+fi
 
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=( time custom_user dir custom_vcs status )
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=( background_jobs )
