@@ -17,6 +17,8 @@ tt=''
 # Welcome!
 
 user="$(echo $USER|sed 's|.|\U&|')"
+ssh="$(hostname)"
+[[ "$ssh" == hpe15 ]] && unset ssh
 
 fortune=$(command -v fortune 2>/dev/null) || fortune=''
 [ -n "$fortune" ] && {
@@ -72,8 +74,9 @@ POWERLEVEL9K_WHITESPACE_BETWEEN_RIGHT_SEGMENTS=''
 POWERLEVEL9K_RIGHT_SEGMENT_END_SEPARATOR=''
 
 # time
+POWERLEVEL9K_TIME_ICON="${ssh+ⵖ}"
 POWERLEVEL9K_TIME_BACKGROUND=$BG_COLOR
-POWERLEVEL9K_TIME_FOREGROUND=3
+POWERLEVEL9K_TIME_FOREGROUND=${ssh+1}3
 # custom_user
 DEFAULT_USER=$USER
 POWERLEVEL9K_CUSTOM_USER='echo $USER'
