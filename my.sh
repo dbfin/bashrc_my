@@ -10,7 +10,7 @@ function custom_vcs() {
 
 function __my__init() {
 
-tt=''
+local tt=''
 [ -n "$BASH" ] && tt='bash'
 [ -n "$ZSH_VERSION" ] && tt='zsh'
 
@@ -20,7 +20,7 @@ user="$(echo $USER|sed 's|.|\U&|')"
 ssh="$(hostname)"
 [[ "$ssh" == hpe15 ]] && unset ssh
 
-fortune=$(command -v fortune 2>/dev/null) || fortune=''
+local fortune=$(command -v fortune 2>/dev/null) || fortune=''
 [ -n "$fortune" ] && {
 
 local W=69
@@ -32,7 +32,7 @@ local pad="$( printf "%${W}s" " " )"
 local pad_="$( printf "%${W}s" " " | sed 's| |─|g' )"
 local msg=" Welcome, $user! "
 
-text="$( $fortune -n 256 -s 2>/dev/null )"
+local text="$( $fortune -n 256 -s 2>/dev/null )"
 export QUOTE="$( echo "$text" | tr '\n' ' ' | sed 's|\s\s\+| |g' )"
 echo -en "\e[0m\n${WB}${WF}"
 printf '%s%s%s%s%s' '╭' "${pad_:1:$(( ($W-2-${#msg})/2 ))}" "$msg" "${pad_:1:$(( ($W-2-${#msg}+1)/2 ))}" '╮'
