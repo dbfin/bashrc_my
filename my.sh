@@ -21,8 +21,11 @@ local tt=''
 # Welcome!
 
 user="$(echo $USER|sed 's|.|\U&|')"
-ssh="$(hostname)"
-[[ "$ssh" == hpe15 ]] && unset ssh
+unset ssh 
+[[ -n "$SSH_CLIENT$SSH_CONNECTION$SSH_TTY" ]] && {
+	ssh=$HOST[1:4] 
+	[[ ${#HOST} -gt 4 ]] && ssh=$ssh$HOST[${#HOST}] 
+}
 
 local fortune=$(command -v fortune 2>/dev/null) || fortune=''
 [ -n "$fortune" ] && {
