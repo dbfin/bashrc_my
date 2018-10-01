@@ -20,7 +20,7 @@ local tt=''
 
 # Welcome!
 
-user="$(echo $USER|sed 's|.|\U&|')"
+local user="$(echo $USER|sed 's|.|\U&|')"
 unset ssh 
 [[ -n "$SSH_CLIENT$SSH_CONNECTION$SSH_TTY" ]] && {
 	ssh=${HOST:0:4} 
