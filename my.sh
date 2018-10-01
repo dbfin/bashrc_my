@@ -147,3 +147,12 @@ fi
 stty stop ^p
 
 [[ "$PATH" =~ '/\.local/bin/?(:|$)' ]] || export PATH=$PATH:$HOME/.local/bin
+
+export PGHOST=localhost
+export PGDATABASE=postgres
+export PGUSER=vcherep
+export PGPASSWORD=
+
+function pgpassword() {
+	export PGPASSWORD="${PGPASSWORD:-`read -sE`}"
+}
