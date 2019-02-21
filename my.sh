@@ -4,6 +4,11 @@ export LANG=en_US.UTF-8
 export LANGUAGE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
+export TERM='xterm-256color'
+
+export HISTFILESIZE=1000000
+export HISTCONTROL=ignoredups
+
 function custom_vcs() {
     POWERLEVEL9K_LEFT_SUBSEGMENT_SEPARATOR=''
 #    POWERLEVEL9K_WHITESPACE_BETWEEN_LEFT_SEGMENTS=' '
@@ -170,7 +175,3 @@ if [ $UID -ne 0 ]; then
 fi
 
 stty stop ^p
-
-export HISTFILESIZE=1000000
-export HISTCONTROL=ignoredups
-
