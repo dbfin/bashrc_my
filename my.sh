@@ -175,3 +175,5 @@ if [ $UID -ne 0 ]; then
 fi
 
 stty stop ^p
+
+[[ "$PATH" =~ '/\.local/bin/?(:|$)' ]] || export PATH=$PATH:$HOME/.local/bin
