@@ -45,7 +45,7 @@ local pad_="$( printf "%${W}s" " " | sed 's| |─|g' )"
 local msg=" Welcome, $user! "
 
 local text="$( $fortune -n 256 -s 2>/dev/null )"
-export QUOTE="$( echo "$text" | tr '\n' ' ' | sed 's|\s\s\+| |g' )"
+export QUOTE="$( echo "$text" | tr '\n' ' ' | sed 's|\s\+| |g' )"
 echo -en "\e[0m\n${WB}${WF}"
 printf '%s%s%s%s%s' '╭' "${pad_:1:$(( ($W-2-${#msg})/2 ))}" "$msg" "${pad_:1:$(( ($W-2-${#msg}+1)/2 ))}" '╮'
 echo -en "\e[0m\n${WB}${WF}"
