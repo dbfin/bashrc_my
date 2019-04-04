@@ -101,10 +101,12 @@ POWERLEVEL9K_VCS_GIT_GITLAB_ICON=$'\uF296'      		# 
 POWERLEVEL9K_VCS_HG_ICON=$'\uF0C3'              		# 
 POWERLEVEL9K_VCS_SVN_ICON=$'\uE72D'             		# 
 
-if [[ x"$ssh" == x ]]; then
-        source /usr/share/zsh-theme-powerlevel9k/powerlevel9k.zsh-theme
+theme=/usr/share/zsh-theme-powerlevel9k/powerlevel9k.zsh-theme
+if [[ -e "$theme" ]]; then
+        source "$theme"
 else
-        source $HOME/.setup/powerlevel9k/powerlevel9k.zsh-theme
+        theme="$HOME/.powerlevel9k.zsh-theme"
+        source "$theme"
 fi
 
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=( time custom_user dir custom_vcs status )
