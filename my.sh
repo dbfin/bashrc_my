@@ -101,13 +101,15 @@ POWERLEVEL9K_VCS_GIT_GITLAB_ICON=$'\uF296'      		# 
 POWERLEVEL9K_VCS_HG_ICON=$'\uF0C3'              		# 
 POWERLEVEL9K_VCS_SVN_ICON=$'\uE72D'             		# 
 
-theme=/usr/share/zsh-theme-powerlevel9k/powerlevel9k.zsh-theme
-if [[ -e "$theme" ]]; then
-        source "$theme"
-else
-        theme="$HOME/.powerlevel9k.zsh-theme"
-        source "$theme"
-fi
+found=0
+for d in {/usr/share/{zsh-theme-,},$HOME/.}powerlevel{10,9}k/; do
+    if [[ -f "${d}powerlevel9k.zsh-theme" ]]; then
+        source "${d}"powerlevel9k.zsh-theme
+        found=1
+        break
+    fi
+done
+[[ $found == 1 ]] || { echo 'zsh'"'"'s powerlevel theme is not found.'; exit 1; }
 
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=( time custom_user dir custom_vcs status )
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=( background_jobs )
