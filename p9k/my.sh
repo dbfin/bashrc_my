@@ -1,0 +1,127 @@
+#!/bin/bash --
+
+export LANG=en_US.UTF-8
+export LANGUAGE=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+
+export TERM='xterm-256color'
+
+export HISTFILE=~/.histfile
+export HISTSIZE=1000000
+export HISTFILESIZE=1000000
+export SAVEHIST=1000000000
+export HISTCONTROL=ignoredups
+
+export ZLE_RPROMPT_INDENT=0
+
+[[ "$PATH" =~ '/\.local/bin/?(:|$)' ]] || export PATH=$PATH:$HOME/.local/bin
+
+function custom_vcs() {
+    export POWERLEVEL9K_LEFT_SUBSEGMENT_SEPARATOR=''
+#    export POWERLEVEL9K_WHITESPACE_BETWEEN_LEFT_SEGMENTS=' '
+    prompt_vcs $1 $2
+#    export POWERLEVEL9K_WHITESPACE_BETWEEN_LEFT_SEGMENTS=''
+    export POWERLEVEL9K_LEFT_SUBSEGMENT_SEPARATOR=' '
+}
+
+() {
+    local ssh=''
+    [[ -n "$SSH_CLIENT$SSH_CONNECTION$SSH_TTY" ]] && {
+        ssh=${HOST:0:4}
+        [[ ${#HOST} -gt 4 ]] && ssh=$ssh$HOST[${#HOST}]
+    }
+    local BG_COLOR=0
+
+    #export POWERLEVEL9K_MODE='awesome-fontconfig'
+    export POWERLEVEL9K_MODE='nerdfont-complete'
+
+    # time icons
+    export POWERLEVEL9K_TIME_ICON="${ssh:+ⵖ}"
+    # dir icons
+    export POWERLEVEL9K_HOME_ICON=''
+    export POWERLEVEL9K_HOME_SUB_ICON=''
+    export POWERLEVEL9K_FOLDER_ICON=''
+    export POWERLEVEL9K_LOCK_ICON=$'\u26b7'
+    export POWERLEVEL9K_ETC_ICON=$POWERLEVEL9K_LOCK_ICON
+    # vcs icons
+    #export POWERLEVEL9K_VCS_UNTRACKED_ICON='?'
+    #export POWERLEVEL9K_VCS_STAGED_ICON='+'
+    #export POWERLEVEL9K_VCS_UNSTAGED_ICON='!'
+    export POWERLEVEL9K_VCS_STASH_ICON=$'\uF01C'           		# 
+    #export POWERLEVEL9K_VCS_INCOMING_CHANGES_ICON=$'\uF01A'		# 
+    export POWERLEVEL9K_VCS_INCOMING_CHANGES_ICON='▼'
+    #export POWERLEVEL9K_VCS_OUTGOING_CHANGES_ICON=$'\uF01B'		# 
+    export POWERLEVEL9K_VCS_OUTGOING_CHANGES_ICON='▲'
+    export POWERLEVEL9K_VCS_TAG_ICON=$'\uF02B'             		# 
+    export POWERLEVEL9K_VCS_BOOKMARK_ICON=$'\uF461'        		# 
+    export POWERLEVEL9K_VCS_COMMIT_ICON=$'\uE729'          		# 
+    export POWERLEVEL9K_VCS_BRANCH_ICON=$'\uF126'          		# 
+    export POWERLEVEL9K_VCS_REMOTE_BRANCH_ICON=$'\uE728'   		# 
+    export POWERLEVEL9K_VCS_GIT_ICON=$'\uF113'             		# 
+    export POWERLEVEL9K_VCS_GIT_GITHUB_ICON=$'\uE709'      		# 
+    export POWERLEVEL9K_VCS_GIT_BITBUCKET_ICON=$'\uE703'   		# 
+    export POWERLEVEL9K_VCS_GIT_GITLAB_ICON=$'\uF296'      		# 
+    export POWERLEVEL9K_VCS_HG_ICON=$'\uF0C3'              		# 
+    export POWERLEVEL9K_VCS_SVN_ICON=$'\uE72D'             		# 
+
+    local found=0
+    for d in {/usr/share/{zsh-theme-,},$HOME/.}powerlevel{10,9}k/; do
+        if [[ -f "${d}powerlevel9k.zsh-theme" ]]; then
+            source "${d}"powerlevel9k.zsh-theme
+            found=1
+            break
+        fi
+    done
+    [[ $found == 1 ]] || { echo 'zsh'"'"'s powerlevel9k theme is not found.'; exit 1; }
+
+    export POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=( time custom_user dir custom_vcs status )
+    export POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=( background_jobs )
+    export POWERLEVEL9K_LEFT_SEGMENT_SEPARATOR=''
+    export POWERLEVEL9K_LEFT_SUBSEGMENT_SEPARATOR=' '
+    export POWERLEVEL9K_WHITESPACE_BETWEEN_LEFT_SEGMENTS=''
+    export POWERLEVEL9K_LEFT_SEGMENT_END_SEPARATOR=' '
+    export POWERLEVEL9K_RIGHT_SEGMENT_SEPARATOR=''
+    export POWERLEVEL9K_RIGHT_SUBSEGMENT_SEPARATOR=''
+    export POWERLEVEL9K_WHITESPACE_BETWEEN_RIGHT_SEGMENTS=''
+    export POWERLEVEL9K_RIGHT_SEGMENT_END_SEPARATOR=''
+
+    # time
+    export POWERLEVEL9K_TIME_BACKGROUND=$BG_COLOR
+    export POWERLEVEL9K_TIME_FOREGROUND=${ssh:+1}3
+    # custom_user
+    export DEFAULT_USER=$USER
+    export POWERLEVEL9K_CUSTOM_USER='echo ${ssh:+$ssh:}$USER'
+    export POWERLEVEL9K_CUSTOM_USER_BACKGROUND=$BG_COLOR
+    export POWERLEVEL9K_CUSTOM_USER_FOREGROUND=12
+    # dir
+    #export POWERLEVEL9K_HOME_FOLDER_ABBREVIATION='⌂'
+    export POWERLEVEL9K_SHORTEN_STRATEGY=Default
+    export POWERLEVEL9K_SHORTEN_DIR_LENGTH=3
+    export POWERLEVEL9K_DIR_SHOW_WRITABLE=true
+    export POWERLEVEL9K_DIR_DEFAULT_BACKGROUND=$BG_COLOR
+    export POWERLEVEL9K_DIR_DEFAULT_FOREGROUND=7
+    export POWERLEVEL9K_DIR_HOME_BACKGROUND=$BG_COLOR
+    export POWERLEVEL9K_DIR_HOME_FOREGROUND=$POWERLEVEL9K_DIR_DEFAULT_FOREGROUND
+    export POWERLEVEL9K_DIR_HOME_SUBFOLDER_BACKGROUND=$BG_COLOR
+    export POWERLEVEL9K_DIR_HOME_SUBFOLDER_FOREGROUND=$POWERLEVEL9K_DIR_DEFAULT_FOREGROUND
+    export POWERLEVEL9K_DIR_NOT_WRITABLE_BACKGROUND=$BG_COLOR
+    export POWERLEVEL9K_DIR_NOT_WRITABLE_FOREGROUND=7
+    export POWERLEVEL9K_DIR_ETC_BACKGROUND=$POWERLEVEL9K_DIR_NOT_WRITABLE_BACKGROUND
+    export POWERLEVEL9K_DIR_ETC_FOREGROUND=$POWERLEVEL9K_DIR_NOT_WRITABLE_FOREGROUND
+    # custom_vcs
+    export POWERLEVEL9K_CUSTOM_VCS='custom_vcs $1 $2'
+    export POWERLEVEL9K_CUSTOM_VCS_BACKGROUND=$BG_COLOR
+    export POWERLEVEL9K_VCS_CLEAN_FOREGROUND=2
+    export POWERLEVEL9K_VCS_CLEAN_BACKGROUND=$BG_COLOR
+    export POWERLEVEL9K_VCS_UNTRACKED_FOREGROUND=6
+    export POWERLEVEL9K_VCS_UNTRACKED_BACKGROUND=$BG_COLOR
+    export POWERLEVEL9K_VCS_MODIFIED_FOREGROUND=3
+    export POWERLEVEL9K_VCS_MODIFIED_BACKGROUND=$BG_COLOR
+    # status
+    export POWERLEVEL9K_STATUS_CROSS=true
+    export POWERLEVEL9K_STATUS_OK_BACKGROUND=$BG_COLOR
+    export POWERLEVEL9K_STATUS_ERROR_BACKGROUND=$BG_COLOR
+    # background_jobs
+    export POWERLEVEL9K_BACKGROUND_JOBS_BACKGROUND=$BG_COLOR
+    export POWERLEVEL9K_BACKGROUND_JOBS_FOREGROUND=14
+}

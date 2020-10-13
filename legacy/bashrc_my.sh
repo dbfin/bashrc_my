@@ -232,7 +232,7 @@ ${TF0}\$( __pwd )\
 __bashrc_my__init
 unset __bashrc_my__init
 
-# User specific aliases and functions
+# Additional parameters
 if [ $UID -ne 0 ]; then
 	export GIT_PS1_SHOWDIRTYSTATE=true
 	export GIT_PS1_SHOWSTASHSTATE=true
