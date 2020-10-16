@@ -12,8 +12,6 @@ export HISTFILESIZE=1000000
 export SAVEHIST=1000000000
 export HISTCONTROL=ignoredups
 
-export ZLE_RPROMPT_INDENT=0
-
 [[ "$PATH" =~ '/\.local/bin/?(:|$)' ]] || export PATH=$PATH:$HOME/.local/bin
 
 function custom_vcs() {
