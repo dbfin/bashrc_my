@@ -70,7 +70,7 @@ function custom_vcs() {
             break
         fi
     done
-    [[ $found == 1 ]] || { echo 'zsh'"'"'s powerlevel9k theme is not found.'; exit 1; }
+    [[ $found == 1 ]] || { echo 'zsh'"'"'s powerlevel9k theme is not found.'; return 1; }
 
     export POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=( time custom_user dir custom_vcs status )
     export POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=( background_jobs )

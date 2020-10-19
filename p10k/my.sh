@@ -25,5 +25,5 @@ export ZLE_RPROMPT_INDENT=0
             break
         fi
     done
-    [[ $found == 1 ]] || { echo 'zsh'"'"'s powerlevel10k theme is not found.'; exit 1; }
+    [[ $found == 1 ]] || { echo 'zsh'"'"'s powerlevel10k theme is not found.'; return 1; }
 }
