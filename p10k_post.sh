@@ -1,6 +1,6 @@
 #!/bin/bash --
 
-local ssh=''
+ssh=''
 [[ -n "$SSH_CLIENT$SSH_CONNECTION$SSH_TTY" ]] && {
     ssh=${HOST:0:4}
     [[ ${#HOST} -gt 4 ]] && ssh=$ssh$HOST[${#HOST}]
@@ -96,3 +96,5 @@ typeset -g POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(
     nix_shell               # nix shell (https://nixos.org/nixos/nix-pills/developing-with-nix-shell.html)
     background_jobs         # presence of background jobs
 )
+
+unset ssh

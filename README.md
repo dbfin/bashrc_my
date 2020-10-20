@@ -1,35 +1,60 @@
 # CURRENT
 
+## zshrc.sh
+
+This is the main script to be called.
+
+It does the following:
+
+- Sets some common constants.
+- Determines whether `powerlevel10k` or `powerlevel9k` is installed.
+- Sets `zsh`-related parameters.
+- Sources `welcome.sh` that shows a welcome message probably with a fortune.
+- For `powerlevel10k` sources its instant prompt script, for `powerlevel9k` sources `p9k_pre.sh` instead.
+- Sources `init.sh` that loads plugins/themes (local versions or using a plugin manager) and binds keys.
+- For `powerlevel10k` sources `.p10k.zsh` if it exists (use `p10k configure` to create one).
+- For `powerlevel10k` sources `p10k_post.sh`, for `powerlevel9k` sources `p9k_post`.
+- Sources `aliases.sh` to create aliases.
+
+Create a link `~/.zshrc` -> `zshrc.sh`.
+
 ## welcome.sh
 
-Checks if there is fortune installed, and if there is, shows one not too long; otherwise, just says hello.
+Welcomes the user.
 
-Should be called before the powerlevel10k's instant prompt.
+Checks if `fortune` is installed, and if it is, shows one not too long; otherwise, just says hello.
 
-## my.sh
+Should be called before the `powerlevel10k`'s instant prompt.
 
-The main script setting some options, and initializing the theme.
+## p9k_pre.sh
 
-In the case of powerlevel9k, theme customizations are defined in this file.
-In the case of powerlevel10k, theme customizations are defined in `p10k.sh`.
+Customizations of the `powerlevel9k` theme.
 
-## p10k.sh
+For `powerlevel9k` some settings need to be defined before the theme is sourced.
 
-Customizations of the powerlevel10k theme.
+Should be called before `init.sh`.
 
-Should be called after ~/.p10k.zsh.
+## init.sh
+
+Loads plugins and the theme, and binds keys.
+
+For each plugin first checks whether it is installed locally, and if not, uses a plugin manager to load it. If `zshrc.sh` finds a theme, sources it, otherwise uses the plugin manager to load it as well.
+
+Binds keys including `Ctrl+L` to clear scrollback and reset the terminal, `up` and `down` keys for plugin `history-substring-search` etc.
+
+## p9k_post.sh, p10k_post.sh
+
+Customizations of the `powerlevel9k` and `powerlevel10k` themes.
+
+These change the default theme parameters, and, for `powerlevel10k`, those defined in `~/.p10k.zsh`.
+
+Should be called after `init.sh`. Also, `p10k_post.sh` should be called after `~/.p10k.zsh`.
 
 ## aliases.sh
 
 Some convenient aliases.
 
 Should be called last.
-
-## zshrc.sh
-
-This is where the scripts above are called from.
-
-Create a link ~/.zshrc -> zshrc.sh.
 
 ---
 
