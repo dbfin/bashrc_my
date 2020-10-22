@@ -40,6 +40,9 @@ autoload -Uz compinit
 compinit
 # End of lines added by compinstall
 
+autoload -U is-at-least
+is-at-least 5.8 && export ZLE_RPROMPT_INDENT=0
+
 source $ZSHRC_DIRECTORY/welcome.sh
 
 if [[ $POWERLEVEL_VERSION -eq 10 ]]; then
@@ -54,8 +57,6 @@ else
 fi
 
 source $ZSHRC_DIRECTORY/init.sh
-
-is-at-least 5.8 && export ZLE_RPROMPT_INDENT=0
 
 if [[ $POWERLEVEL_VERSION -eq 10 ]]; then
     # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
