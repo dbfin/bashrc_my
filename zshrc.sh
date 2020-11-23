@@ -16,12 +16,32 @@ export HISTCONTROL=ignoredups
 
 [[ "$PATH" =~ '/\.local/bin/?(:|$)' ]] || export PATH=$PATH:$HOME/.local/bin
 
-POWERLEVEL_VERSION=10
+function sns() {
+    local res=$( find "${@:1:$(($#-1))}" -type f -path '*/'"${@[$#]}" 2>/dev/null | head -1 )
+    [[ -n "$res" ]] || return 1
+    source $res || return 2
+}
+
+found_pm=0
+used_pm=0
+sns /usr/share/zsh/ /usr/share/zplug/ $HOME/.zplug/ zplug/init.zsh && found_pm=1
+
+POWERLEVEL_VERSION=0
+POWERLEVEL_SCRIPT=''
 () {
-    find_dirs=( `find /usr/share/ -maxdepth 1 -type d -name 'zsh*' -o -name '*powerlevel*' 2>/dev/null`
-                `find $HOME -maxdepth 1 -type d -name '.zsh*' -o -name '.*powerlevel*' 2>/dev/null` )
-    POWERLEVEL_SCRIPT=`find $find_dirs -name powerlevel10k.zsh-theme 2>/dev/null | grep --color=no .` || \
-    ( POWERLEVEL_SCRIPT=`find $find_dirs -name powerlevel9k.zsh-theme 2>/dev/null | grep --color=no .` && POWERLEVEL_VERSION=9 )
+    local find_dirs=( `find /usr/share/ -maxdepth 1 -type d -name 'zsh*' -o -name '*powerlevel*' 2>/dev/null`
+                      `find $HOME -maxdepth 1 -type d -name '.zsh*' -o -name '.*powerlevel*' 2>/dev/null` )
+    POWERLEVEL_SCRIPT=$( find $find_dirs -name powerlevel10k.zsh-theme 2>/dev/null | grep --color=no --max-count=1 . )
+    if [[ -n "$POWERLEVEL_SCRIPT" ]]; then
+        POWERLEVEL_VERSION=10
+    else
+        POWERLEVEL_SCRIPT=$( find $find_dirs -name powerlevel9k.zsh-theme 2>/dev/null | grep --color=no --max-count=1 . )
+        if [[ -n "$POWERLEVEL_SCRIPT" ]]; then
+            POWERLEVEL_VERSION=9
+        elif [[ $found_pm -eq 1 ]]; then
+            zplug "romkatv/powerlevel10k", as:theme && ( POWERLEVEL_VERSION=10; used_pm=1; )
+        fi
+    fi
 }
 export POWERLEVEL_VERSION
 export POWERLEVEL_SCRIPT
@@ -52,7 +72,7 @@ if [[ $POWERLEVEL_VERSION -eq 10 ]]; then
     if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
         source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
     fi
-else
+elif [[ $POWERLEVEL_VERSION -eq 9 ]]; then
     source $ZSHRC_DIRECTORY/p9k_pre.sh
 fi
 
@@ -62,8 +82,12 @@ if [[ $POWERLEVEL_VERSION -eq 10 ]]; then
     # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
     [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
     source $ZSHRC_DIRECTORY/p10k_post.sh
-else
+elif [[ $POWERLEVEL_VERSION -eq 9 ]]; then
     source $ZSHRC_DIRECTORY/p9k_post.sh
 fi
+
+unset used_pm
+unset found_pm
+unset sns
 
 source $ZSHRC_DIRECTORY/aliases.sh
