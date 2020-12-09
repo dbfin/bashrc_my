@@ -24,10 +24,6 @@ export HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND='fg=yellow,bold'
 export HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND=$HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND
 export HISTORY_SUBSTRING_SEARCH_FUZZY=1
 
-function zsh_clear_scrollback_and_reset() { printf '\e[3J' >$TTY && zle clear-screen }
-zle -N zsh_clear_scrollback_and_reset
-
-bindkey '^L' zsh_clear_scrollback_and_reset
 bindkey '^[[1;5D' backward-word
 bindkey '^[[1;5C' forward-word
 bindkey '^[[H' beginning-of-line

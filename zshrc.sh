@@ -60,9 +60,6 @@ autoload -Uz compinit
 compinit
 # End of lines added by compinstall
 
-autoload -U is-at-least
-is-at-least 5.8 && export ZLE_RPROMPT_INDENT=0
-
 source $ZSHRC_DIRECTORY/welcome.sh
 
 if [[ $POWERLEVEL_VERSION -eq 10 ]]; then
@@ -77,6 +74,14 @@ elif [[ $POWERLEVEL_VERSION -eq 9 ]]; then
 fi
 
 source $ZSHRC_DIRECTORY/init.sh
+
+autoload -U is-at-least
+is-at-least 5.8 && {
+    export ZLE_RPROMPT_INDENT=0
+    function zsh_clear_scrollback_and_reset() { printf '\e[3J' >$TTY && zle clear-screen }
+    zle -N zsh_clear_scrollback_and_reset
+    bindkey '^L' zsh_clear_scrollback_and_reset
+}
 
 if [[ $POWERLEVEL_VERSION -eq 10 ]]; then
     # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
