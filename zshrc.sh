@@ -24,13 +24,14 @@ function sns() {
 
 found_pm=0
 used_pm=0
-sns /usr/share/zsh/ /usr/share/zplug/ $HOME/.zplug/ zplug/init.zsh && found_pm=1
+sns /usr/share/zsh/ /usr/share/zplug/ zplug/init.zsh && found_pm=1
 
 POWERLEVEL_VERSION=0
 POWERLEVEL_SCRIPT=''
 () {
     local find_dirs=( `find /usr/share/ -maxdepth 1 -type d -name 'zsh*' -o -name '*powerlevel*' 2>/dev/null`
-                      `find $HOME -maxdepth 1 -type d -name '.zsh*' -o -name '.*powerlevel*' 2>/dev/null` )
+                      `find $HOME/ -maxdepth 1 -type d -name '.zsh*' -o -name '.*powerlevel*' 2>/dev/null`
+                      `find $HOME/.zplug/repos/ -maxdepth 2 -type d -name '*powerlevel*' 2>/dev/null` )
     POWERLEVEL_SCRIPT=$( find $find_dirs -name powerlevel10k.zsh-theme 2>/dev/null | grep --color=no --max-count=1 . )
     if [[ -n "$POWERLEVEL_SCRIPT" ]]; then
         POWERLEVEL_VERSION=10
