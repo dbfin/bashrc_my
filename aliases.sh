@@ -14,6 +14,8 @@ alias vi='vim'
 alias svi='sudo vi'
 alias svim='sudo vim'
 
+alias thanks='exit'
+
 alias gita='git add -i'
 alias gitb='git branch'
 function gitcommit() {
@@ -68,11 +70,12 @@ function quote_save() {
 }
 alias qs=quote_save
 
-alias agi='sudo apt-get install'
-alias agir='sudo apt-get install --install-recommends'
-alias aginr='sudo apt-get install --no-install-recommends'
-alias agp='sudo apt-get purge'
 alias agc='sudo apt-get install -f && sudo apt-get autoremove && sudo apt-get autoclean && sudo apt-get clean'
+alias agi='sudo apt-get install'
+alias aginr='sudo apt-get install --no-install-recommends'
+alias agir='sudo apt-get install --install-recommends'
+alias agp='sudo apt-get purge'
+alias undu='sudo apt-get update && sudo apt-get dist-upgrade'
 alias unu='sudo apt-get update && sudo apt-get upgrade'
 
 alias zclean='sudo zypper clean'
