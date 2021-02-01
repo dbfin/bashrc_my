@@ -19,7 +19,7 @@ alias thanks='exit'
 alias gita='git add -i'
 alias gitb='git branch'
 function gitcommit() {
-	git commit ${1:+-m "$1"};
+	git commit ${1:+-m"$1"};
 }
 alias gitc='gitcommit'
 alias gitca='git commit --amend'
