@@ -24,7 +24,7 @@ function sns() {
 
 found_pm=0
 used_pm=0
-sns /usr/share/zsh/ /usr/share/zplug/ zplug/init.zsh && found_pm=1
+sns /usr/share/zsh/ /usr/share/zplug/ $HOME/.zplug/ zplug/init.zsh && found_pm=1
 
 POWERLEVEL_VERSION=0
 POWERLEVEL_SCRIPT=''
