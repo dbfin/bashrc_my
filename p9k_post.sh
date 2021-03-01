@@ -32,7 +32,7 @@ function custom_vcs() {
     export POWERLEVEL9K_TIME_FOREGROUND=${ssh:+1}3
     # custom_user
     export DEFAULT_USER=$USER
-    export POWERLEVEL9K_CUSTOM_USER='echo ${ssh:+$ssh:}$USER'
+    export POWERLEVEL9K_CUSTOM_USER='echo '${ssh:+$ssh:}'$USER'
     export POWERLEVEL9K_CUSTOM_USER_BACKGROUND=$BG_COLOR
     export POWERLEVEL9K_CUSTOM_USER_FOREGROUND=12
     # dir

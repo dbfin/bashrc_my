@@ -16,7 +16,7 @@ typeset -g POWERLEVEL9K_DIR_ANCHOR_BOLD=false
 typeset -g POWERLEVEL9K_VCS_BRANCH_ICON='\UF126'
 
 typeset -g DEFAULT_USER=$USER
-typeset -g POWERLEVEL9K_CUSTOM_USER='echo ${ssh:+ⵖ $ssh:$USER}'
+typeset -g POWERLEVEL9K_CUSTOM_USER="${ssh:+echo ⵖ $ssh:\$USER}"
 typeset -g POWERLEVEL9K_CUSTOM_USER_FOREGROUND=${ssh:+97}
 
 typeset -g POWERLEVEL9K_TIME_FOREGROUND=117
