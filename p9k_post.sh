@@ -16,8 +16,10 @@ function custom_vcs() {
     }
     _bashrc_my_colog_bg=0
 
-    export POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=( time custom_user dir custom_vcs status )
-    export POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=( background_jobs )
+    POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=( time custom_user dir custom_vcs status )
+    export POWERLEVEL9K_LEFT_PROMPT_ELEMENTS
+    POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=( background_jobs )
+    export POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS
     export POWERLEVEL9K_LEFT_SEGMENT_SEPARATOR=''
     export POWERLEVEL9K_LEFT_SUBSEGMENT_SEPARATOR=' '
     export POWERLEVEL9K_WHITESPACE_BETWEEN_LEFT_SEGMENTS=''
