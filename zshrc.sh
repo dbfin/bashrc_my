@@ -30,7 +30,7 @@ sns /usr/share/zsh/ /usr/share/zplug/ $HOME/.zplug/ zplug/init.zsh && found_pm=1
 
 POWERLEVEL_VERSION=0
 POWERLEVEL_SCRIPT=''
-() {
+function _bashrc_my_load_powerlevel() {
     _bashrc_my_find_dirs=( `find /usr/share/ -maxdepth 1 -type d -name 'zsh*' -o -name '*powerlevel*' 2>/dev/null`
                            `find $HOME/ -maxdepth 1 -type d -name '.zsh*' -o -name '.*powerlevel*' 2>/dev/null`
                            `find $HOME/.zplug/repos/ -maxdepth 2 -type d -name '*powerlevel*' 2>/dev/null` )
@@ -41,12 +41,14 @@ POWERLEVEL_SCRIPT=''
         POWERLEVEL_SCRIPT=$( find $_bashrc_my_find_dirs -name powerlevel9k.zsh-theme 2>/dev/null | grep --color=no --max-count=1 . )
         if [[ -n "$POWERLEVEL_SCRIPT" ]]; then
             POWERLEVEL_VERSION=9
-        elif [[ $found_pm -eq 1 ]]; then
-            zplug "romkatv/powerlevel10k", as:theme && ( POWERLEVEL_VERSION=10; used_pm=1; )
+        elif [[ $found_pm -eq 1 && $used_pm -eq 0 ]]; then
+            zplug "romkatv/powerlevel10k", as:theme && { used_pm=1; _bashrc_my_load_powerlevel; }
         fi
     fi
     unset _bashrc_my_find_dirs
 }
+_bashrc_my_load_powerlevel
+unset _bashrc_my_load_powerlevel
 export POWERLEVEL_VERSION
 export POWERLEVEL_SCRIPT
 
