@@ -1,18 +1,17 @@
 #!/bin/bash --
 
 () {
-    local ssh=''
+    _bashrc_my_ssh=''
     [[ -n "$SSH_CLIENT$SSH_CONNECTION$SSH_TTY" ]] && {
-        ssh=${HOST:0:4}
-        [[ ${#HOST} -gt 4 ]] && ssh=$ssh$HOST[${#HOST}]
+        _bashrc_my_ssh=${HOST:0:4}
+        [[ ${#HOST} -gt 4 ]] && _bashrc_my_ssh=$_bashrc_my_ssh$HOST[${#HOST}]
     }
-    local BG_COLOR=0
 
     #export POWERLEVEL9K_MODE='awesome-fontconfig'
     export POWERLEVEL9K_MODE='nerdfont-complete'
 
     # time icons
-    export POWERLEVEL9K_TIME_ICON="${ssh:+ⵖ}"
+    export POWERLEVEL9K_TIME_ICON="${_bashrc_my_ssh:+ⵖ}"
     # dir icons
     export POWERLEVEL9K_HOME_ICON=''
     export POWERLEVEL9K_HOME_SUB_ICON=''
@@ -39,4 +38,6 @@
     export POWERLEVEL9K_VCS_GIT_GITLAB_ICON=$'\uF296'      		# 
     export POWERLEVEL9K_VCS_HG_ICON=$'\uF0C3'              		# 
     export POWERLEVEL9K_VCS_SVN_ICON=$'\uE72D'             		# 
+
+    unset _bashrc_my_ssh
 }

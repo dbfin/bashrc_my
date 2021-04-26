@@ -17,9 +17,11 @@ export HISTCONTROL=ignoredups
 [[ "$PATH" =~ '/\.local/bin/?(:|$)' ]] || export PATH=$PATH:$HOME/.local/bin
 
 function sns() {
-    local res=$( find "${@:1:$(($#-1))}" -type f -path '*/'"${@[$#]}" 2>/dev/null | head -1 )
-    [[ -n "$res" ]] || return 1
-    source $res || return 2
+    _bashrc_my_res=$( find "${@:1:$(($#-1))}" -type f -path '*/'"${@[$#]}" 2>/dev/null | head -1 )
+    [[ -n "$_bashrc_my_res" ]] || { unset _bashrc_my_res; return 1; }
+    source $_bashrc_my_res || { unset _bashrc_my_res; return 2; }
+    unset _bashrc_my_res
+    return 0
 }
 
 found_pm=0
@@ -29,20 +31,21 @@ sns /usr/share/zsh/ /usr/share/zplug/ $HOME/.zplug/ zplug/init.zsh && found_pm=1
 POWERLEVEL_VERSION=0
 POWERLEVEL_SCRIPT=''
 () {
-    local find_dirs=( `find /usr/share/ -maxdepth 1 -type d -name 'zsh*' -o -name '*powerlevel*' 2>/dev/null`
-                      `find $HOME/ -maxdepth 1 -type d -name '.zsh*' -o -name '.*powerlevel*' 2>/dev/null`
-                      `find $HOME/.zplug/repos/ -maxdepth 2 -type d -name '*powerlevel*' 2>/dev/null` )
-    POWERLEVEL_SCRIPT=$( find $find_dirs -name powerlevel10k.zsh-theme 2>/dev/null | grep --color=no --max-count=1 . )
+    _bashrc_my_find_dirs=( `find /usr/share/ -maxdepth 1 -type d -name 'zsh*' -o -name '*powerlevel*' 2>/dev/null`
+                           `find $HOME/ -maxdepth 1 -type d -name '.zsh*' -o -name '.*powerlevel*' 2>/dev/null`
+                           `find $HOME/.zplug/repos/ -maxdepth 2 -type d -name '*powerlevel*' 2>/dev/null` )
+    POWERLEVEL_SCRIPT=$( find $_bashrc_my_find_dirs -name powerlevel10k.zsh-theme 2>/dev/null | grep --color=no --max-count=1 . )
     if [[ -n "$POWERLEVEL_SCRIPT" ]]; then
         POWERLEVEL_VERSION=10
     else
-        POWERLEVEL_SCRIPT=$( find $find_dirs -name powerlevel9k.zsh-theme 2>/dev/null | grep --color=no --max-count=1 . )
+        POWERLEVEL_SCRIPT=$( find $_bashrc_my_find_dirs -name powerlevel9k.zsh-theme 2>/dev/null | grep --color=no --max-count=1 . )
         if [[ -n "$POWERLEVEL_SCRIPT" ]]; then
             POWERLEVEL_VERSION=9
         elif [[ $found_pm -eq 1 ]]; then
             zplug "romkatv/powerlevel10k", as:theme && ( POWERLEVEL_VERSION=10; used_pm=1; )
         fi
     fi
+    unset _bashrc_my_find_dirs
 }
 export POWERLEVEL_VERSION
 export POWERLEVEL_SCRIPT
