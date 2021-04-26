@@ -16,6 +16,8 @@ export HISTCONTROL=ignoredups
 
 [[ "$PATH" =~ '/\.local/bin/?(:|$)' ]] || export PATH=$PATH:$HOME/.local/bin
 
+autoload -U is-at-least
+
 function sns() {
     _bashrc_my_res=$( find "${@:1:$(($#-1))}" -type f -path '*/'"${@[$#]}" 2>/dev/null | head -1 )
     [[ -n "$_bashrc_my_res" ]] || { unset _bashrc_my_res; return 1; }
@@ -34,7 +36,8 @@ function _bashrc_my_load_powerlevel() {
     _bashrc_my_find_dirs=( `find /usr/share/ -maxdepth 1 -type d -name 'zsh*' -o -name '*powerlevel*' 2>/dev/null`
                            `find $HOME/ -maxdepth 1 -type d -name '.zsh*' -o -name '.*powerlevel*' 2>/dev/null`
                            `find $HOME/.zplug/repos/ -maxdepth 2 -type d -name '*powerlevel*' 2>/dev/null` )
-    POWERLEVEL_SCRIPT=$( find $_bashrc_my_find_dirs -name powerlevel10k.zsh-theme 2>/dev/null | grep --color=no --max-count=1 . )
+    POWERLEVEL_SCRIPT=''
+    is-at-least 5.1 && POWERLEVEL_SCRIPT=$( find $_bashrc_my_find_dirs -name powerlevel10k.zsh-theme 2>/dev/null | grep --color=no --max-count=1 . )
     if [[ -n "$POWERLEVEL_SCRIPT" ]]; then
         POWERLEVEL_VERSION=10
     else
@@ -81,7 +84,6 @@ fi
 
 source $ZSHRC_DIRECTORY/init.sh
 
-autoload -U is-at-least
 is-at-least 5.8 && {
     export ZLE_RPROMPT_INDENT=0
     function zsh_clear_scrollback_and_reset() { printf '\e[3J' >$TTY && zle clear-screen }
