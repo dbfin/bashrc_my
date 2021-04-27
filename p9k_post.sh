@@ -68,6 +68,4 @@ function custom_vcs() {
     # background_jobs
     export POWERLEVEL9K_BACKGROUND_JOBS_BACKGROUND=$_bashrc_my_colog_bg
     export POWERLEVEL9K_BACKGROUND_JOBS_FOREGROUND=14
-
-    unset _bashrc_my_colog_bg _bashrc_my_ssh
 }

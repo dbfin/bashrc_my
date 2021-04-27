@@ -1,9 +1,9 @@
 #!/bin/bash --
 
-ssh=''
+_bashrc_my_ssh=''
 [[ -n "$SSH_CLIENT$SSH_CONNECTION$SSH_TTY" ]] && {
-    ssh=${HOST:0:4}
-    [[ ${#HOST} -gt 4 ]] && ssh=$ssh$HOST[${#HOST}]
+    _bashrc_my_ssh=${HOST:0:4}
+    [[ ${#HOST} -gt 4 ]] && _bashrc_my_ssh=$_bashrc_my_ssh$HOST[${#HOST}]
 }
 
 typeset -g POWERLEVEL9K_HOME_FOLDER_ABBREVIATION='\UF015'
@@ -16,8 +16,8 @@ typeset -g POWERLEVEL9K_DIR_ANCHOR_BOLD=false
 typeset -g POWERLEVEL9K_VCS_BRANCH_ICON='\UF126'
 
 typeset -g DEFAULT_USER=$USER
-typeset -g POWERLEVEL9K_CUSTOM_USER="${ssh:+echo ⵖ $ssh:\$USER}"
-typeset -g POWERLEVEL9K_CUSTOM_USER_FOREGROUND=${ssh:+97}
+typeset -g POWERLEVEL9K_CUSTOM_USER="${_bashrc_my_ssh:+echo ⵖ $_bashrc_my_ssh:\$USER}"
+typeset -g POWERLEVEL9K_CUSTOM_USER_FOREGROUND=${_bashrc_my_ssh:+97}
 
 typeset -g POWERLEVEL9K_TIME_FOREGROUND=117
 
@@ -96,5 +96,3 @@ typeset -g POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(
     nix_shell               # nix shell (https://nixos.org/nixos/nix-pills/developing-with-nix-shell.html)
     background_jobs         # presence of background jobs
 )
-
-unset ssh

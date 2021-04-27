@@ -18,21 +18,20 @@ export HISTCONTROL=ignoredups
 
 autoload -U is-at-least
 
-function sns() {
+function _bashrc_my_f_sns() {
     _bashrc_my_res=$( find "${@:1:$(($#-1))}" -type f -path '*/'"${@[$#]}" 2>/dev/null | head -1 )
-    [[ -n "$_bashrc_my_res" ]] || { unset _bashrc_my_res; return 1; }
-    source $_bashrc_my_res || { unset _bashrc_my_res; return 2; }
-    unset _bashrc_my_res
+    [[ -n "$_bashrc_my_res" ]] || return 1
+    source $_bashrc_my_res || return 2
     return 0
 }
 
-found_pm=0
-used_pm=0
-sns /usr/share/zsh/ /usr/share/zplug/ $HOME/.zplug/ zplug/init.zsh && found_pm=1
+_bashrc_my_found_pm=0
+_bashrc_my_used_pm=0
+_bashrc_my_f_sns /usr/share/zsh/ /usr/share/zplug/ $HOME/.zplug/ zplug/init.zsh && _bashrc_my_found_pm=1
 
 POWERLEVEL_VERSION=0
 POWERLEVEL_SCRIPT=''
-function _bashrc_my_load_powerlevel() {
+function _bashrc_my_f_load_powerlevel() {
     _bashrc_my_find_dirs=( `find /usr/share/ -maxdepth 1 -type d -name 'zsh*' -o -name '*powerlevel*' 2>/dev/null`
                            `find $HOME/ -maxdepth 1 -type d -name '.zsh*' -o -name '.*powerlevel*' 2>/dev/null`
                            `find $HOME/.zplug/repos/ -maxdepth 2 -type d -name '*powerlevel*' 2>/dev/null` )
@@ -46,17 +45,15 @@ function _bashrc_my_load_powerlevel() {
             POWERLEVEL_VERSION=9
         elif [[ $1 -eq 0 ]]; then
             is-at-least 5.1 && {
-                ( [[ $found_pm -eq 1 ]] && zplug "romkatv/powerlevel10k", as:theme && used_pm=1 || mkdir -p $HOME/.zplug/repos/romkatv/ && git clone https://github.com/romkatv/powerlevel10k $HOME/.zplug/repos/romkatv/powerlevel10k ) && _bashrc_my_load_powerlevel 1
+                ( [[ $_bashrc_my_found_pm -eq 1 ]] && zplug "romkatv/powerlevel10k", as:theme && _bashrc_my_used_pm=1 || mkdir -p $HOME/.zplug/repos/romkatv/ && git clone https://github.com/romkatv/powerlevel10k $HOME/.zplug/repos/romkatv/powerlevel10k ) && _bashrc_my_f_load_powerlevel 1
             }
             is-at-least 5.1 || {
-                mkdir -p $HOME/.zplug/repos/Powerlevel9k/ && git clone https://github.com/Powerlevel9k/powerlevel9k $HOME/.zplug/repos/Powerlevel9k/powerlevel9k && _bashrc_my_load_powerlevel 1
+                mkdir -p $HOME/.zplug/repos/Powerlevel9k/ && git clone https://github.com/Powerlevel9k/powerlevel9k $HOME/.zplug/repos/Powerlevel9k/powerlevel9k && _bashrc_my_f_load_powerlevel 1
             }
         fi
     fi
-    unset _bashrc_my_find_dirs
 }
-_bashrc_my_load_powerlevel 0
-unset _bashrc_my_load_powerlevel
+_bashrc_my_f_load_powerlevel 0
 export POWERLEVEL_VERSION
 export POWERLEVEL_SCRIPT
 
@@ -104,8 +101,7 @@ elif [[ $POWERLEVEL_VERSION -eq 9 ]]; then
     source $ZSHRC_DIRECTORY/p9k_post.sh
 fi
 
-unset used_pm
-unset found_pm
-unset sns
+unset -f -m '_bashrc_my_f_*'
+unset -m '_bashrc_my_*'
 
 source $ZSHRC_DIRECTORY/aliases.sh

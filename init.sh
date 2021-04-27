@@ -4,17 +4,16 @@
     for plugin in autosuggestions syntax-highlighting history-substring-search; do
         _bashrc_my_found_plugin=0
         for script_name in zsh-$plugin{.plugin,}.{z,}sh; do
-            sns /usr/share/zsh*/ $script_name && { _bashrc_my_found_plugin=1; break; }
+            _bashrc_my_f_sns /usr/share/zsh*/ $script_name && { _bashrc_my_found_plugin=1; break; }
         done
-        if [[ $_bashrc_my_found_plugin -eq 0 && $found_pm -eq 1 ]]; then
-            zplug "zsh-users/zsh-$plugin", as:plugin && used_pm=1
+        if [[ $_bashrc_my_found_plugin -eq 0 && $_bashrc_my_found_pm -eq 1 ]]; then
+            zplug "zsh-users/zsh-$plugin", as:plugin && _bashrc_my_used_pm=1
         fi
-        unset _bashrc_my_found_plugin
     done
     if [[ -n "$POWERLEVEL_SCRIPT" ]]; then
         source $POWERLEVEL_SCRIPT
     fi
-    if [[ $used_pm -eq 1 ]]; then
+    if [[ $_bashrc_my_used_pm -eq 1 ]]; then
         zplug check || zplug install
         zplug load
     fi

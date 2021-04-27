@@ -51,24 +51,37 @@ alias gitstpi='git stash pop --index'
 
 function quote_save() {
 	if [ -n "$1" ]; then
-		_bashrc_my_fortune=$(command -v fortune 2>/dev/null) || _bashrc_my_fortune=''
-		[ -z "$_bashrc_my_fortune" ] && echo 'Command fortune is not found.' && { unset _bashrc_my_fortune; return 1; }
-		quote="$( $_bashrc_my_fortune -n 256 -s -i -m "$1" 2>/dev/null | awk 'BEGIN{srand();RS="\n%\n"}rand()<1/NR{_=$0}END{print _}' )"
-		unset _bashrc_my_fortune
-		[ -z "$quote" ] && echo 'No matching quotes are found.' && return 1
+		local fortune
+		fortune=$(command -v fortune 2>/dev/null) || fortune=''
+		if [[ -z "$fortune" ]]; then
+			echo 'Command fortune is not found.'
+			return 1
+		fi
+		local quote
+		quote="$( $fortune -n 256 -s -i -m "$1" 2>/dev/null | awk 'BEGIN{srand();RS="\n%\n"}rand()<1/NR{_=$0}END{print _}' )"
+		if [[ -z "$quote" ]]; then
+			echo 'No matching quotes are found.'
+			return 1
+		fi
 		echo -e "$quote"
 		echo -n 'Save? '
 		read yn
-		[[ ! "$yn" =~ ^[Yy]([Ee][Ss])?$ ]] && return 0
+		if [[ ! "$yn" =~ ^[Yy]([Ee][Ss])?$ ]]; then
+			return 0
+		fi
 	else
 		quote="$QUOTE"
 	fi
-	_bashrc_my_file_quotes=~/Settings/Personal/quotes.txt
-	{ [ -z "$quote" ] && echo '$QUOTE is empty.' || \
-		[ ! -f "$_bashrc_my_file_quotes" ] && echo "$_bashrc_my_file_quotes is not found."; } && \
-		{ unset _bashrc_my_file_quotes; return 1; }
-	echo -e "$quote\n" >> "$_bashrc_my_file_quotes" && echo 'Quote saved.' || { echo "Cannot save the quote to $_bashrc_my_file_quotes."; unset _bashrc_my_file_quotes; return 1; }
-	unset _bashrc_my_file_quotes
+	local file_quotes
+	file_quotes=~/Settings/Personal/quotes.txt
+	if [[ -z "$quote" ]]; then
+		echo '$QUOTE is empty.'
+		return 1
+	elif [[ ! -f "$file_quotes" ]]; then
+		echo "$file_quotes is not found."
+		return 1
+	fi
+	echo -e "$quote\n" >> "$file_quotes" && echo 'Quote saved.' || { echo "Cannot save the quote to $file_quotes."; return 1; }
 }
 alias qs=quote_save
 

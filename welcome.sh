@@ -32,9 +32,7 @@ stty stop ^p
         echo -en "\e[0m\n${_bashrc_my_color_b}${_bashrc_my_color_f}"
         printf '%s%s%s' '╰' "${_bashrc_my_pad_:1:$(( $_bashrc_my_width-2 ))}" '╯'
         echo -en "\e[0m\n"
-        unset _bashrc_my_text _bashrc_my_msg _bashrc_my_pad_ _bashrc_my_pad _bashrc_my_color_ff _bashrc_my_color_f _bashrc_my_color_b _bashrc_my_width_text _bashrc_my_width
     else
         echo "Welcome, $_bashrc_my_user!"
     fi
-    unset _bashrc_my_fortune _bashrc_my_user
 }

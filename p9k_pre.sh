@@ -38,6 +38,4 @@
     export POWERLEVEL9K_VCS_GIT_GITLAB_ICON=$'\uF296'      		# 
     export POWERLEVEL9K_VCS_HG_ICON=$'\uF0C3'              		# 
     export POWERLEVEL9K_VCS_SVN_ICON=$'\uE72D'             		# 
-
-    unset _bashrc_my_ssh
 }
