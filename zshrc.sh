@@ -44,13 +44,18 @@ function _bashrc_my_load_powerlevel() {
         POWERLEVEL_SCRIPT=$( find $_bashrc_my_find_dirs -name powerlevel9k.zsh-theme 2>/dev/null | grep --color=no --max-count=1 . )
         if [[ -n "$POWERLEVEL_SCRIPT" ]]; then
             POWERLEVEL_VERSION=9
-        elif [[ $found_pm -eq 1 && $used_pm -eq 0 ]]; then
-            zplug "romkatv/powerlevel10k", as:theme && { used_pm=1; _bashrc_my_load_powerlevel; }
+        elif [[ $1 -eq 0 ]]; then
+            is-at-least 5.1 && {
+                ( [[ $found_pm -eq 1 ]] && zplug "romkatv/powerlevel10k", as:theme && used_pm=1 || mkdir -p $HOME/.zplug/repos/romkatv/ && git clone https://github.com/romkatv/powerlevel10k $HOME/.zplug/repos/romkatv/powerlevel10k ) && _bashrc_my_load_powerlevel 1
+            }
+            is-at-least 5.1 || {
+                mkdir -p $HOME/.zplug/repos/Powerlevel9k/ && git clone https://github.com/Powerlevel9k/powerlevel9k $HOME/.zplug/repos/Powerlevel9k/powerlevel9k && _bashrc_my_load_powerlevel 1
+            }
         fi
     fi
     unset _bashrc_my_find_dirs
 }
-_bashrc_my_load_powerlevel
+_bashrc_my_load_powerlevel 0
 unset _bashrc_my_load_powerlevel
 export POWERLEVEL_VERSION
 export POWERLEVEL_SCRIPT
