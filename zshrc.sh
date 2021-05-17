@@ -70,6 +70,7 @@ zstyle :compinstall filename $HOME/.zshrc
 autoload -Uz compinit
 compinit
 # End of lines added by compinstall
+setopt COMPLETE_IN_WORD
 
 source $ZSHRC_DIRECTORY/welcome.sh
 
