@@ -14,7 +14,7 @@ export HISTFILESIZE=1000000
 export SAVEHIST=1000000000
 export HISTCONTROL=ignoredups
 
-[[ "$PATH" =~ '/\.local/bin/?(:|$)' ]] || export PATH=$PATH:$HOME/.local/bin
+[[ "$PATH" =~ '/\.local/bin/?(:|$)' ]] || export PATH=$HOME/.local/bin:$PATH
 
 autoload -U is-at-least
 
