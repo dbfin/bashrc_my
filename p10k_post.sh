@@ -24,6 +24,8 @@ typeset -g POWERLEVEL9K_TIME_FOREGROUND=117
 typeset -g POWERLEVEL9K_BACKGROUND_JOBS_VERBOSE=true
 typeset -g POWERLEVEL9K_BACKGROUND_JOBS_FOREGROUND=192
 
+unset POWERLEVEL9K_VCS_VISUAL_IDENTIFIER_EXPANSION
+
 typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
     # =========================[ Line #1 ]=========================
     # os_icon               # os identifier

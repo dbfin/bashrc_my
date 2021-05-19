@@ -61,6 +61,8 @@ function custom_vcs() {
     export POWERLEVEL9K_VCS_UNTRACKED_BACKGROUND=$_bashrc_my_colog_bg
     export POWERLEVEL9K_VCS_MODIFIED_FOREGROUND=3
     export POWERLEVEL9K_VCS_MODIFIED_BACKGROUND=$_bashrc_my_colog_bg
+    unset POWERLEVEL9K_VCS_VISUAL_IDENTIFIER_EXPANSION
+
     # status
     export POWERLEVEL9K_STATUS_CROSS=true
     export POWERLEVEL9K_STATUS_OK_BACKGROUND=$_bashrc_my_colog_bg
