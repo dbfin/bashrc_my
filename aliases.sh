@@ -14,6 +14,8 @@ alias vi='vim'
 alias svi='sudo vi'
 alias svim='sudo vim'
 
+alias watch='watch -cn 1'
+
 alias thanks='exit'
 
 alias gita='git add -i'
