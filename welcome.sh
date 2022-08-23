@@ -3,7 +3,7 @@
 stty stop ^p
 
 () {
-    _bashrc_my_user="$(echo $USER|sed 's|.|\U&|')"
+    _bashrc_my_user="$(echo ${(C)USER})"
     _bashrc_my_fortune=$(command -v fortune 2>/dev/null) || _bashrc_my_fortune=''
     if [ -n "$_bashrc_my_fortune" ]; then
         _bashrc_my_width=69
