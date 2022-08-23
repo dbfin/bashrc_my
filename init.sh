@@ -1,4 +1,4 @@
-#!/bin/bash --
+#!/bin/zsh --
 
 () {
     for plugin in autosuggestions syntax-highlighting history-substring-search; do

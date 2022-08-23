@@ -1,4 +1,4 @@
-#!/bin/bash --
+#!/bin/zsh --
 
 function custom_vcs() {
     export POWERLEVEL9K_LEFT_SUBSEGMENT_SEPARATOR=''

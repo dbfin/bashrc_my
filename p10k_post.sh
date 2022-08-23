@@ -1,4 +1,4 @@
-#!/bin/bash --
+#!/bin/zsh --
 
 _bashrc_my_ssh=''
 [[ -n "$SSH_CLIENT$SSH_CONNECTION$SSH_TTY" ]] && {
