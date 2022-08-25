@@ -27,7 +27,10 @@ function _bashrc_my_f_sns() {
 
 _bashrc_my_found_pm=0
 _bashrc_my_used_pm=0
-_bashrc_my_f_sns /usr/share/zsh/ /usr/share/zplug/ /opt/homebrew/Cellar/zplug/ $HOME/.zplug/ 'zplug/**/init.zsh' && _bashrc_my_found_pm=1
+{
+    _bashrc_my_f_sns /usr/share/zsh/ /usr/share/zplug/ $HOME/.zplug/ zplug/init.zsh || \
+    _bashrc_my_f_sns /opt/homebrew/Cellar/zplug/ 'zplug/*/init.zsh';
+} && _bashrc_my_found_pm=1
 
 POWERLEVEL_VERSION=0
 POWERLEVEL_SCRIPT=''
