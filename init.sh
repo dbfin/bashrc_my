@@ -24,15 +24,27 @@ export HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND='fg=yellow,bold'
 export HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND=$HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND
 export HISTORY_SUBSTRING_SEARCH_FUZZY=1
 
-bindkey '^[[1;5D' backward-word
+# Key shortcuts
+
+# common keys
 bindkey '^[[1;5C' forward-word
+bindkey '^[[1;5D' backward-word
 bindkey '^[[H' beginning-of-line
 bindkey '^[[F' end-of-line
 bindkey "${terminfo[khome]}" beginning-of-line
 bindkey "${terminfo[kend]}" end-of-line
+
+# search history
 #bindkey '^[[1;5A' history-substring-search-up
 #bindkey '^[[1;5B' history-substring-search-down
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
-#bindkey "$terminfo[kcuu1]" history-substring-search-up
-#bindkey "$terminfo[kcud1]" history-substring-search-down
+bindkey "$terminfo[kcuu1]" history-substring-search-up
+bindkey "$terminfo[kcud1]" history-substring-search-down
+
+# autosuggest
+ZSH_AUTOSUGGEST_ACCEPT_WIDGETS=(
+    end-of-line
+    vi-end-of-line
+    vi-add-eol
+)
