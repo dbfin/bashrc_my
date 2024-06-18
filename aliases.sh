@@ -10,6 +10,11 @@ alias lla='ll -A'
 alias l1='ls -1'
 alias l1a='l1 -A'
 
+function mkdir_cd() {
+	mkdir "$1" && cd "$1"
+}
+alias mcd='mkdir_cd'
+
 alias vi='vim'
 alias svi='sudo vi'
 alias svim='sudo vim'
