@@ -34,26 +34,22 @@ typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
     # =========================[ Line #2 ]=========================
     newline                 # \n
     custom_user
+    kubecontext             # current kubernetes context (https://kubernetes.io/)
+    terraform               # terraform workspace (https://www.terraform.io)
+    # terraform_version     # terraform version (https://www.terraform.io)
+    aws                     # aws profile (https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html)
+    aws_eb_env              # aws elastic beanstalk environment (https://aws.amazon.com/elasticbeanstalk/)
+    azure                   # azure account name (https://docs.microsoft.com/en-us/cli/azure)
+    gcloud                  # google cloud cli account and project (https://cloud.google.com/)
+    google_app_cred         # google application credentials (https://cloud.google.com/docs/authentication/production)
+    toolbox                 # toolbox name (https://github.com/containers/toolbox)
+    #context                 # user@hostname
     prompt_char             # prompt symbol
 )
 
 typeset -g POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(
     # =========================[ Line #1 ]=========================
     #status                  # exit code of the last command
-    #context                 # user@hostname
-    # ip                    # ip address and bandwidth usage for a specified network interface
-    # public_ip             # public IP address
-    # proxy                 # system-wide http/https/ftp proxy
-    # battery               # internal battery
-    # wifi                  # wifi speed
-    # vpn_ip                # virtual private network indicator
-    # load                  # CPU load
-    # disk_usage            # disk usage
-    # ram                   # free RAM
-    # swap                  # used swap
-    todo                    # todo items (https://github.com/todotxt/todo.txt-cli)
-    timewarrior             # timewarrior tracking status (https://timewarrior.net/)
-    taskwarrior             # taskwarrior task count (https://taskwarrior.org/)
     command_execution_time  # duration of the last command
     time                    # current time
     # =========================[ Line #2 ]=========================
@@ -81,20 +77,35 @@ typeset -g POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(
     luaenv                  # lua version from luaenv (https://github.com/cehoffman/luaenv)
     jenv                    # java version from jenv (https://github.com/jenv/jenv)
     plenv                   # perl version from plenv (https://github.com/tokuhirom/plenv)
+    perlbrew                # perl version from perlbrew (https://github.com/gugod/App-perlbrew)
     phpenv                  # php version from phpenv (https://github.com/phpenv/phpenv)
+    scalaenv                # scala version from scalaenv (https://github.com/scalaenv/scalaenv)
     haskell_stack           # haskell version from stack (https://haskellstack.org/)
-    kubecontext             # current kubernetes context (https://kubernetes.io/)
-    terraform               # terraform workspace (https://www.terraform.io)
-    aws                     # aws profile (https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html)
-    aws_eb_env              # aws elastic beanstalk environment (https://aws.amazon.com/elasticbeanstalk/)
-    azure                   # azure account name (https://docs.microsoft.com/en-us/cli/azure)
-    gcloud                  # google cloud cli account and project (https://cloud.google.com/)
-    google_app_cred         # google application credentials (https://cloud.google.com/docs/authentication/production)
     nordvpn                 # nordvpn connection status, linux only (https://nordvpn.com/)
     ranger                  # ranger shell (https://github.com/ranger/ranger)
+    yazi                    # yazi shell (https://github.com/sxyazi/yazi)
     nnn                     # nnn shell (https://github.com/jarun/nnn)
+    lf                      # lf shell (https://github.com/gokcehan/lf)
+    xplr                    # xplr shell (https://github.com/sayanarijit/xplr)
     vim_shell               # vim shell indicator (:sh)
     midnight_commander      # midnight commander shell (https://midnight-commander.org/)
     nix_shell               # nix shell (https://nixos.org/nixos/nix-pills/developing-with-nix-shell.html)
+    chezmoi_shell           # chezmoi shell (https://www.chezmoi.io/)
+    # vpn_ip                # virtual private network indicator
+    # load                  # CPU load
+    # disk_usage            # disk usage
+    # ram                   # free RAM
+    # swap                  # used swap
+    #todo                    # todo items (https://github.com/todotxt/todo.txt-cli)
+    #timewarrior             # timewarrior tracking status (https://timewarrior.net/)
+    #taskwarrior             # taskwarrior task count (https://taskwarrior.org/)
+    per_directory_history   # Oh My Zsh per-directory-history local/global indicator
+    # cpu_arch              # CPU architecture
+    # ip                    # ip address and bandwidth usage for a specified network interface
+    # public_ip             # public IP address
+    # proxy                 # system-wide http/https/ftp proxy
+    # battery               # internal battery
+    # wifi                  # wifi speed
+    # example               # example user-defined segment (see prompt_example function below)
     background_jobs         # presence of background jobs
 )
