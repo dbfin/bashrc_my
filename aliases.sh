@@ -1,6 +1,6 @@
 #!/bin/sh --
 
-alias diff='colordiff'
+alias diff='diff --color=auto'
 alias grep='grep --color=auto'
 
 alias ls='ls --color=auto'
@@ -11,7 +11,7 @@ alias l1='ls -1'
 alias l1a='l1 -A'
 
 function mkdir_cd() {
-	mkdir "$1" && cd "$1"
+	mkdir -p "$1" && cd "$1"
 }
 alias mcd='mkdir_cd'
 
@@ -38,7 +38,7 @@ function gitlog() {
 	git log --oneline --decorate --abbrev-commit --graph ${1:+-n }$1; 
 }
 alias gitl='gitlog'
-alias gitlall='gitlog --all'
+alias gitlall='gitl --all'
 alias gitp='git push -u --tags origin `git rev-parse --abbrev-ref HEAD`'
 alias gitpb='git push -u --tags origin'
 alias gitpl='git pull'
