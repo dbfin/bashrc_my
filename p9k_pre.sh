@@ -11,7 +11,7 @@
     export POWERLEVEL9K_MODE='nerdfont-complete'
 
     # time icons
-    export POWERLEVEL9K_TIME_ICON="${_bashrc_my_ssh:+ⵖ}"
+    export POWERLEVEL9K_TIME_ICON="${_bashrc_my_ssh:+⌁}"
     # dir icons
     export POWERLEVEL9K_HOME_ICON=''
     export POWERLEVEL9K_HOME_SUB_ICON=''
