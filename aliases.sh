@@ -23,6 +23,13 @@ alias watch='watch -cn 1'
 
 alias thanks='exit'
 
+alias sshx='ssh -O exit'
+function ssh_restart() {
+	sshx $1
+	ssh $1
+}
+alias sshr='ssh_restart'
+
 alias gita='git add -i'
 alias gitb='git branch'
 function gitcommit() {
