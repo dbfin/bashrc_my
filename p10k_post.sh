@@ -2,8 +2,9 @@
 
 _bashrc_my_ssh=''
 [[ -n "$SSH_CLIENT$SSH_CONNECTION$SSH_TTY" ]] && {
-    _bashrc_my_ssh=${HOST:0:4}
-    [[ ${#HOST} -gt 4 ]] && _bashrc_my_ssh=$_bashrc_my_ssh$HOST[${#HOST}]
+    host=${HOST%%\.*}
+    if [ ${#HOST} -gt 4 ]; then middle=${host:4:-1}; end=${host: -1}; else middle=''; end=''; fi
+    _bashrc_my_ssh=${host:0:4}${middle//[^0-9]/}$end
 }
 
 typeset -g POWERLEVEL9K_HOME_FOLDER_ABBREVIATION='\UF015'
